@@ -102,24 +102,8 @@
             </div>
         </div>
 
-        <div class="loginbox container">
-            <div class="loginbox-inner row">
-                <form class="span5 offset1 ">
-                    <h3>Register</h3>
-                    <input type="text" name="useremail" placeholder="abc@xyzq.com"/><br/>
-                    <input type="password" name="userpassword" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"/><br/>
-                    <input type="password" name="userpassword" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"/><br/>
-                    <input type="button" class="btn btn-primary " value="Register"/>
-                </form>
-                <form class="span4 offset2">
-                    <h3>Login</h3>
-                    <input type="text" name="useremail" placeholder="abc@xyzq.com"/><br/>
-                    <input type="password" name="userpassword" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"/><br/>
-                    <input type="button" class="btn btn-primary " value="Login"/>
-                </form>
-            </div>
-        </div>
-        <hr/>
+        <?php require ('scripts/headers/loginbox.php');?>
+        
         <div class="container">
             <div class="row">
                 <div class="span6">
