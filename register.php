@@ -86,15 +86,36 @@ require 'scripts/requires/site_data.php';
                     // enter the user in the database with email password
                     //enter the status as inactive
 
-                    mysql_connect($mysql_host, $mysql_user, $mysql_password);
-                    ?>
-                    <div class="whitebox">
-                        <h1>Confirm your registration</h1>
-                        <p>An email has sent to the following mentioned email i.e <a href="confirmation.php?em=<?php echo $useremail; ?>&p=<?php echo sha1($password); ?>">Confirm your email</a> Please click the link in the sent email for the activation of your account, Post activation you may be activated to this </p>
-                    </div>
-                    <?php
+                    if (mysql_connect($mysql_host, $mysql_user, $mysql_password) && mysql_select_db($mysql_database)) {
+                        
+                        $registeruserquery = "INSERT INTO  `a1970345_csr`.`users` (
+                                    `email` ,
+                                    `password` ,
+                                    `status`
+                                    )
+                                    VALUES (
+                                    '$useremail', SHA1(  '$password' ) ,  'inactive'
+                                    );
+                                    ";
+
+                        if (mysql_query($registeruserquery)) {
+                            ?>
+                            <div class="whitebox">
+                                <h1>Confirm your registration</h1>
+                                <p>An email has sent to the following mentioned email i.e <a href="confirmation.php?em=<?php echo $useremail; ?>&p=<?php echo sha1($password); ?>">Confirm your email</a> Please click the link in the sent email for the activation of your account, Post activation you may be activated to this </p>
+                            </div>
+                            <?php
+                        } else {
+                            ?>
+                            <div class="whitebox">
+                                <h1>The user is already registered</h1>
+                                <p>Try recovering your password by clicking here</p>
+                            </div>
+                            <?php
+                        }
+                    }
                 } else {
-                    //header('Location: index.php');
+                    header('Location: index.php');
                     //email not valid 
                     ?>
                     <div class="whitebox">
@@ -104,7 +125,7 @@ require 'scripts/requires/site_data.php';
                     <?php
                 }
             } else {
-               // header('Location: index.php');
+                header('Location: index.php');
                 ?>
                 <div class="whitebox">
                     <h1>Required feilds empty</h1>
@@ -131,6 +152,6 @@ require 'scripts/requires/site_data.php';
 </html>
 
 <?php
-ob_end_clean();
+ob_end_flush();
 ?>
 
