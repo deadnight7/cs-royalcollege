@@ -1,4 +1,5 @@
 <?php
+ob_start();
 require 'scripts/requires/site_data.php';
 
 // echo 'Hi '.$useremail. ' How are you! Pasword is '.$password;
@@ -13,7 +14,6 @@ require 'scripts/requires/site_data.php';
         <link rel="stylesheet" href="css/fonts/bebas/stylesheet.css"/>
         <link rel="stylesheet" href="css/fonts/caviar/stylesheet.css"/>
         <link rel="shortcut icon" href="res/assets/logo.png"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <style type="text/css">
             h1, h3 {
                 font-family: CaviarDreamsBold;
@@ -68,63 +68,33 @@ require 'scripts/requires/site_data.php';
             .caviarBold {
                 font-family: 'CaviarDreamsBold';
             }
-
         </style>
-
     </head>
     <body>
 
-
-
-        <div class="navbar navbar-fixed-top">
-            <div class="navbar-inner">
-                <div class="container">
-                    <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="brand span6" href="index.php"><span class="caviarBold logo">Royal College</span> <img class="royallogo" src="res/assets/logo.png"> <span class="caviar">Computer Science</span></a>
-                    <div class="nav-collapse collapse menustrip">
-                        <ul class="nav pull-right">
-                            <li class="">
-                                <a href="index.php">Home</a>
-                            </li>
-                            <li class="">
-                                <a href="">Course</a>
-                            </li>
-                            <li class="">
-                                <a href="">Discussions</a>
-                            </li>
-                            <li class="">
-                                <a href="">Projects</a>
-                            </li>
-                            <li>
-                                <a class="loginclick" href="#">Login</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+        <?php require ('scripts/headers/navbar.php'); ?>
         <?php require ('scripts/headers/loginbox.php'); ?>
         <div class="container">
             <?php
             if (isset($_REQUEST['useremail']) && isset($_REQUEST['userpassword']) && isset($_REQUEST['userpasswordagain'])) {
-                $useremail =strtolower($_REQUEST['useremail']) ;
+                $useremail = strtolower($_REQUEST['useremail']);
                 $password = $_REQUEST['userpassword'];
                 $passwordagain = $_REQUEST['userpasswordagain'];
-                
-                if (filter_var($useremail, FILTER_VALIDATE_EMAIL) && ($password == $passwordagain) && (strlen($password)>=7)) {
-                    
+
+                if (filter_var($useremail, FILTER_VALIDATE_EMAIL) && ($password == $passwordagain) && (strlen($password) >= 7)) {
+                    // Details entered are valid
+                    // enter the user in the database with email password
+                    //enter the status as inactive
+
+                    mysql_connect($mysql_host, $mysql_user, $mysql_password);
                     ?>
                     <div class="whitebox">
                         <h1>Confirm your registration</h1>
-                        <p>An email has sent to the following mentioned email i.e <?php echo $useremail ?> Please click the link in the sent email for the activation of your account, Post activation you may be activated to this </p>
+                        <p>An email has sent to the following mentioned email i.e <a href="confirmation.php?em=<?php echo $useremail; ?>&p=<?php echo sha1($password); ?>">Confirm your email</a> Please click the link in the sent email for the activation of your account, Post activation you may be activated to this </p>
                     </div>
                     <?php
                 } else {
+                    //header('Location: index.php');
                     //email not valid 
                     ?>
                     <div class="whitebox">
@@ -134,6 +104,7 @@ require 'scripts/requires/site_data.php';
                     <?php
                 }
             } else {
+               // header('Location: index.php');
                 ?>
                 <div class="whitebox">
                     <h1>Required feilds empty</h1>
@@ -159,4 +130,7 @@ require 'scripts/requires/site_data.php';
     </body>
 </html>
 
+<?php
+ob_end_clean();
+?>
 
