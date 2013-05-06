@@ -87,8 +87,8 @@ require 'scripts/requires/site_data.php';
                     //enter the status as inactive
 
                     if (mysql_connect($mysql_host, $mysql_user, $mysql_password) && mysql_select_db($mysql_database)) {
-                        
-                        $registeruserquery = "INSERT INTO  `a1970345_csr`.`users` (
+
+                        $registeruserquery = "INSERT INTO  `$mysql_database`.`users` (
                                     `email` ,
                                     `password` ,
                                     `status`
@@ -99,11 +99,20 @@ require 'scripts/requires/site_data.php';
                                     ";
 
                         if (mysql_query($registeruserquery)) {
+                            $subject = "Registration Confirmation Mail";
+                            $confirmlink = "http://".$_SERVER['HTTP_HOST']."/confirmation.php?em=". $useremail ."&p=". sha1($password);
+                            
+                            $message = 'Confirm your registration, the following mentioned email i.e '.$confirmlink.' Please click the link in the sent email for the activation of your account, Post activation you may be activated to this';
+                            $headers = "From: " . $_mail_server. "\r\n";;
+                            $headers .= "MIME-Version: 1.0\r\n";
+                            $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+                            mail($useremail, $subject, $message, $headers);
                             ?>
                             <div class="whitebox">
                                 <h1>Confirm your registration</h1>
-                                <p>An email has sent to the following mentioned email i.e <a href="confirmation.php?em=<?php echo $useremail; ?>&p=<?php echo sha1($password); ?>">Confirm your email</a> Please click the link in the sent email for the activation of your account, Post activation you may be activated to this </p>
+                                <p>An email has sent to the following mentioned email i.e <?php echo $useremail ; ?>  Please click the link in the sent email for the activation of your account, Post activation you may be activated to this </p>
                             </div>
+
                             <?php
                         } else {
                             ?>

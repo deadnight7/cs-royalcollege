@@ -108,7 +108,7 @@ require './scripts/requires/db_conn.php';
                         ?>
                         <div class="whitebox container">
                             <h1>You have successfully registered, Welcome!</h1>
-                            <p>You have successfully completed your activation  process, thank you for joining!</p>
+                            <p>You have successfully completed your activation  process, thank you for joining! You can now <a href="#" class="loginclick">log in</a>.</p>
                         </div>
                         <?php
                     } else {

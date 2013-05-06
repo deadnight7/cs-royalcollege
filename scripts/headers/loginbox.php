@@ -18,3 +18,12 @@
     </div>
 </div>
 <hr/>
+<script src="js/jq1.7.js"></script>
+<script type="text/javascript">
+    $('document').ready(function() {
+        $('.loginclick').click(function(e) {
+            e.preventDefault();
+            $('.loginbox').stop().slideToggle(700);
+        });
+    });
+</script>
