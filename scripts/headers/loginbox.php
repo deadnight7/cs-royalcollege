@@ -9,11 +9,11 @@
             <input type="password" min="7" max="25" name="userpasswordagain" placeholder="Retype Password" class="span3" required/><br/>
             <input type="submit" class="btn btn-primary " value="Register" class="span3"/>
         </form>
-        <form autocomplete="off" class="span4 offset2">
+        <form method="post" action="login.php" autocomplete="off" class="span4 offset2">
             <h3>Login</h3>
-            <input type="text" name="reguseremail" placeholder="Email" class="span3" required/><br/>
-            <input type="password" name="reguserpassword" placeholder="Password" class="span3" required/><br/>
-            <input type="button" class="btn btn-primary " value="Login" />
+            <input type="text" name="loginemail" placeholder="Email" class="span3" required/><br/>
+            <input type="password" name="loginpassword" placeholder="Password" class="span3" required/><br/>
+            <input type="submit" class="btn btn-primary " value="Login" />
         </form>
     </div>
 </div>

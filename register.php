@@ -150,10 +150,6 @@ require 'scripts/requires/site_data.php';
         <script>
             $('document').ready(function() {
                 $('.carousel').carousel();
-                $('.loginclick').click(function(e) {
-                    e.preventDefault();
-                    $('.loginbox').stop().slideToggle(700);
-                });
             });
         </script>
 
